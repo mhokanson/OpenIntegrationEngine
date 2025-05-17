@@ -130,6 +130,7 @@ public class MirthRSyntaxTextArea extends RSyntaxTextArea implements MirthTextIn
     private CustomJCheckBoxMenuItem wrapLinesMenuItem;
     private JMenu codeMenu;
     private CustomMenuItem formatCodeMenuItem;
+    private CustomMenuItem toggleCommentMenuItem;
     private JMenu macroMenu;
     private CustomMenuItem beginMacroMenuItem;
     private CustomMenuItem endMacroMenuItem;
@@ -233,6 +234,7 @@ public class MirthRSyntaxTextArea extends RSyntaxTextArea implements MirthTextIn
         wrapLinesMenuItem = new CustomJCheckBoxMenuItem(this, new WrapLinesAction(this), ActionInfo.DISPLAY_WRAP_LINES);
         codeMenu = new JMenu("Code");
         formatCodeMenuItem = new CustomMenuItem(this, new FormatCodeAction(this), ActionInfo.FORMAT_CODE);
+        toggleCommentMenuItem = new CustomMenuItem(this, new ToggleCommentAction(this), ActionInfo.TOGGLE_COMMENT);
         macroMenu = new JMenu("Macro");
         beginMacroMenuItem = new CustomMenuItem(this, new BeginMacroAction(), ActionInfo.MACRO_BEGIN);
         endMacroMenuItem = new CustomMenuItem(this, new EndMacroAction(), ActionInfo.MACRO_END);
@@ -245,7 +247,7 @@ public class MirthRSyntaxTextArea extends RSyntaxTextArea implements MirthTextIn
         getActionMap().put(ActionInfo.JOIN_LINE.getActionMapKey(), new JoinLineAction());
         getActionMap().put(ActionInfo.GO_TO_MATCHING_BRACKET.getActionMapKey(), new GoToMatchingBracketAction());
         getActionMap().put(ActionInfo.FORMAT_CODE.getActionMapKey(), new FormatCodeAction(this));
-        getActionMap().put(ActionInfo.TOGGLE_COMMENT.getActionMapKey(), new ToggleCommentAction());
+        getActionMap().put(ActionInfo.TOGGLE_COMMENT.getActionMapKey(), new ToggleCommentAction(this));
         getActionMap().put(ActionInfo.DOCUMENT_START.getActionMapKey(), new DocumentStartAction(false));
         getActionMap().put(ActionInfo.DOCUMENT_SELECT_START.getActionMapKey(), new DocumentStartAction(true));
         getActionMap().put(ActionInfo.DOCUMENT_END.getActionMapKey(), new DocumentEndAction(false));
@@ -496,6 +498,7 @@ public class MirthRSyntaxTextArea extends RSyntaxTextArea implements MirthTextIn
         menu.addSeparator();
 
         codeMenu.add(formatCodeMenuItem);
+        codeMenu.add(toggleCommentMenuItem);
         menu.add(codeMenu);
         menu.addSeparator();
 
@@ -525,6 +528,7 @@ public class MirthRSyntaxTextArea extends RSyntaxTextArea implements MirthTextIn
             clearMarkedOccurrencesMenuItem.setEnabled(clearMarkedOccurrencesMenuItem.getAction().isEnabled() && canType && ((RSyntaxTextAreaHighlighter) getHighlighter()).getMarkAllHighlightCount() > 0);
             foldingMenu.setEnabled(getFoldManager().isCodeFoldingSupportedAndEnabled());
             formatCodeMenuItem.setEnabled(formatCodeMenuItem.getAction().isEnabled());
+            toggleCommentMenuItem.setEnabled(toggleCommentMenuItem.getAction().isEnabled());
             beginMacroMenuItem.setEnabled(!isRecordingMacro());
             endMacroMenuItem.setEnabled(isRecordingMacro());
             playbackMacroMenuItem.setEnabled(!isRecordingMacro() && getCurrentMacro() != null);
@@ -545,6 +549,7 @@ public class MirthRSyntaxTextArea extends RSyntaxTextArea implements MirthTextIn
             collapseAllCommentFoldsMenuItem.updateAccelerator();
             expandAllFoldsMenuItem.updateAccelerator();
             formatCodeMenuItem.updateAccelerator();
+            toggleCommentMenuItem.updateAccelerator();
             beginMacroMenuItem.updateAccelerator();
             endMacroMenuItem.updateAccelerator();
             playbackMacroMenuItem.updateAccelerator();
