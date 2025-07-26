@@ -966,11 +966,11 @@ public class DonkeyEngineController implements EngineController {
     }
 
     protected Long getSourceQueueSize(Channel channel) {
-        return new Long(channel.getSourceQueue().size());
+        return (long)(channel.getSourceQueue().size());
     }
 
     protected Long getDestinationQueueSize(DestinationConnector destinationConnector) {
-        return new Long(destinationConnector.getQueue().size());
+        return (long)(destinationConnector.getQueue().size());
     }
 
     @Override

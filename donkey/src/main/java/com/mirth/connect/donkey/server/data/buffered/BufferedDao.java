@@ -77,7 +77,7 @@ public class BufferedDao implements DonkeyDao {
 
     @Override
     public void commit(boolean durable) {
-        commit(new Boolean(durable));
+        commit((Boolean) durable);
     }
 
     private void commit(Boolean durable) {
