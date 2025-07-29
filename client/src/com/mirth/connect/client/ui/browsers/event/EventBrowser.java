@@ -476,7 +476,7 @@ public class EventBrowser extends javax.swing.JPanel {
                         updateEventTable(events);
 
                         if (!events.hasNextPage()) {
-                            events.setItemCount((long)(((retrievedPageNumber - 1) * events.getPageSize()) + events.size()));
+                            events.setItemCount(Long.valueOf(((retrievedPageNumber - 1) * events.getPageSize()) + events.size()));
                             enableCountButton = false;
                         }
                     } else {
@@ -485,7 +485,7 @@ public class EventBrowser extends javax.swing.JPanel {
                             model.refreshDataVector(new Object[0][0]);
                         }
 
-                        events.setItemCount((long)((retrievedPageNumber - 1) * events.getPageSize()));
+                        events.setItemCount(Long.valueOf((retrievedPageNumber - 1) * events.getPageSize()));
                         enableCountButton = false;
                         pageNumberField.setText("0");
                     }
